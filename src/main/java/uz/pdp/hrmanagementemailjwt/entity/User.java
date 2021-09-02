@@ -19,7 +19,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Entity(name = "users")
-public class User implements UserDetails  {
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private UUID id;
@@ -31,13 +31,13 @@ public class User implements UserDetails  {
     private String firstName;
 
     @Email
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false,updatable = false)
+    @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt; //qacon ro'yhatdan o'tganligi
 
@@ -49,14 +49,13 @@ public class User implements UserDetails  {
     private Role role;
 
     private String emailCode;
-
-    private boolean accountNonExpired=true;     //muddati o'tmaganligi
-    private boolean credentialsNonExpired=true; //ishonclilik muddati o'tmaganligi
-    private boolean accountNonLocked=true;      // acc bloklanmaganligi
+    private boolean accountNonExpired = true;     //muddati o'tmaganligi
+    private boolean credentialsNonExpired = true; //ishonclilik muddati o'tmaganligi
+    private boolean accountNonLocked = true;      // acc bloklanmaganligi
     private boolean enabled;                    //yoniqligi
 
 
-     //------------UserDetails metodlari-----------------------
+    //------------UserDetails metodlari-----------------------
 
 
     @Override
@@ -90,4 +89,12 @@ public class User implements UserDetails  {
     }
 
 
+//    //DataLoader uchun
+    public User(String lastName, String firstName, String email, String password, Role role) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

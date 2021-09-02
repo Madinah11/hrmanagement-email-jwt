@@ -3,10 +3,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import uz.pdp.hrmanagementemailjwt.entity.Months;
 import uz.pdp.hrmanagementemailjwt.entity.Salary;
 import uz.pdp.hrmanagementemailjwt.entity.User;
 import uz.pdp.hrmanagementemailjwt.payload.ApiResponse;
 import uz.pdp.hrmanagementemailjwt.payload.SalaryDto;
+import uz.pdp.hrmanagementemailjwt.repository.MonthRepository;
 import uz.pdp.hrmanagementemailjwt.repository.SalaryRepository;
 import uz.pdp.hrmanagementemailjwt.repository.UserRepository;
 
@@ -20,6 +22,8 @@ public class SalaryService {
     UserRepository userRepository;
     @Autowired
     SalaryRepository salaryRepository;
+    @Autowired
+    MonthRepository monthRepository;
 
     public ApiResponse paySalary(SalaryDto salaryDto){
         Optional<User> optionalUser = userRepository.findById(salaryDto.getEmployee());
@@ -32,7 +36,11 @@ public class SalaryService {
             Salary salary=new Salary();
             salary.setEmployee(employee);
             salary.setAmountSalary(salaryDto.getAmountSalary());
-            salary.setMonth(salaryDto.getMonth());
+            Optional<Months> optionalMonths = monthRepository.findById(salaryDto.getMonthId());
+            if (!optionalMonths.isPresent())
+                return new ApiResponse("Bunday oy nomi mavjud emas",false);
+            Months month = optionalMonths.get();
+            salary.setMonth(month);
             salaryRepository.save(salary);
             return new ApiResponse("Oylik saqlandi "+employee.getLastName()+" "+ employee.getFirstName()+" uchun",true);
         }

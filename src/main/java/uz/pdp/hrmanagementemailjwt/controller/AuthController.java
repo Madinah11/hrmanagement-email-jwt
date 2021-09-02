@@ -15,12 +15,6 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @PostMapping("/saveDirector")
-    public HttpEntity<?> registerDirector(@RequestBody RegisterDto registerDto){
-        ApiResponse apiResponse = authService.saveDirector(registerDto);
-        return ResponseEntity.ok(apiResponse);
-    }
-
     @PostMapping("/register")
     public HttpEntity<?> register(@RequestBody RegisterDto registerDto){
         ApiResponse apiResponse = authService.registerUser(registerDto);

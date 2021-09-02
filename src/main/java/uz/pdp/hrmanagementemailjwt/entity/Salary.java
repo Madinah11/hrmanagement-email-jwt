@@ -22,8 +22,8 @@ public class Salary {
     @NotNull
     private  Double amountSalary;   // oylik miqdori
 
-    @NotNull
-    private String month;           // qaysi oy uchun berilayotgani
+    @ManyToOne
+    private Months month;           // qaysi oy uchun berilayotgani
 
 
     @Column(nullable = false,updatable = false)

@@ -34,7 +34,7 @@ public class Task {
     @ManyToOne
     private User responsibleUser;  // vazifa uchun ma'sul xodim
 
-
+    @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus; // qaysi holatdaligi(yengi,jarayonda,tugatilgan)
 
 

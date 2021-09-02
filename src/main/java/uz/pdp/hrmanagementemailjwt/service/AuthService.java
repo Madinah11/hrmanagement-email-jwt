@@ -39,22 +39,6 @@ public class AuthService implements UserDetailsService {
     @Autowired
     JwtProvider jwtProvider;
 
-    public ApiResponse saveDirector(RegisterDto registerDto) {
-        User user = new User();
-        user.setFirstName(registerDto.getFirstName());
-        user.setLastName(registerDto.getLastName());
-        user.setEmail(registerDto.getEmail());
-        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        Optional<Role> optionalRole = roleRepository.findById(registerDto.getRoleId());
-        if (!optionalRole.isPresent())
-            return new ApiResponse("Bunday Lavozim Yo'q",false);
-        Role role = optionalRole.get();
-        user.setRole(role);
-        user.setEnabled(true);
-        userRepository.save(user);
-        return new ApiResponse("Direktor qo'shildi", true);
-    }
-
     public ApiResponse registerUser(RegisterDto registerDto) {
         User newUser = new User();    // YANGI QO'SHILAYOTGAN XODIM
         boolean email = userRepository.existsByEmail(registerDto.getEmail());

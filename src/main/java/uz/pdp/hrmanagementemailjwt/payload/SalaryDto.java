@@ -8,6 +8,6 @@ import java.util.UUID;
 public class SalaryDto {
     private UUID employee;
     private  Double amountSalary;
-    private String month;
+    private Integer monthId;
 
 }
